@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-mongoose.connect('').then(() => {
+const Player = require('./models/player');
+mongoose.connect('mongodb+srv://tilak:Basketball23@cluster0-tjkfz.mongodb.net/test?retryWrites=true').then(() => {
     console.log('Connected!');
 }).catch(() => {
     console.log('Error');
@@ -10,6 +11,16 @@ mongoose.connect('').then(() => {
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
+app.post('/postTestPlayer', (req, res) => {
+    const player = new Player({
+        name: 'Zion Williamson',
+        college: 'Duke',
+        position: 'SF'
+      });
+      player.save();
+      res.status(200).send('hi');
+})
 
 
 app.use(function (req, res, next) {

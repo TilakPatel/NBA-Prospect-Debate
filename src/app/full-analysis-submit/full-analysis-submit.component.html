@@ -10,9 +10,7 @@
             <div class="form-group">
               <label for="exampleSelect1">Name of player</label>
               <select class="form-control" id="exampleSelect1">
-                <option>Zion</option>
-                <option>Cam</option>
-                <option>RJ</option>
+                <option *ngFor="let player of this.players">{{player}}</option>
               </select>
             </div>
             <div class="form-group">
