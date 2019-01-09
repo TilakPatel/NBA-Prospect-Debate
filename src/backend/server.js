@@ -12,14 +12,17 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-app.post('/postTestPlayer', (req, res) => {
+app.post('/postPlayer', (req, res) => {
     const player = new Player({
-        name: 'Zion Williamson',
-        college: 'Duke',
-        position: 'SF'
-      });
-      player.save();
-      res.status(200).send('hi');
+        name: req.body.name,
+        college: req.body.college,
+        position: req.body.position,
+        weight: req.body.weight,
+        height: req.body.height,
+        year: req.body.year
+    });
+    player.save();
+    res.status(200).send('hi');
 })
 
 

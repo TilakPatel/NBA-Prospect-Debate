@@ -16,7 +16,10 @@ const playerSchema = mongoose.Schema({
         { motor: [Number] },
         { leadership: [Number] },
         { maturity: [Number] }
-    ]
+    ],
+    height: String,
+    weight: Number,
+    year: String
 
 });
 
