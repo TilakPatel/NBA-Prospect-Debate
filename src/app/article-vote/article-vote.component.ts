@@ -3,6 +3,8 @@ import { Player } from '../models/player-model';
 import { Analysis } from '../models/analysis-model'
 import { environment } from '../../environments/environment'
 import { HttpClient } from '@angular/common/http';
+import { JQueryStatic } from 'node_modules/jquery';
+declare var $: JQueryStatic;
 @Component({
   selector: 'app-article-vote',
   templateUrl: './article-vote.component.html',
@@ -17,12 +19,16 @@ export class ArticleVoteComponent implements OnInit {
 
   ngOnInit() {
     this.fetchRandomInfo();
+    $('#alert-bad').hide();
+    $('#spinner').hide();
   }
 
   fetchRandomInfo() {
-    this.currentPlayer.name = "🏀🏀🏀LOADING🏀🏀🏀";
+    this.currentPlayer.name="";
+    $('#spinner').show();
     this.http.get<Player>(this.serverURL + '/randomPlayer'
     ).subscribe(dat => {
+      $('#spinner').hide();
       this.currentPlayer = dat;
       this.analysisOne = this.currentPlayer.analysises[Math.floor(Math.random() * this.currentPlayer.analysises.length)];
       this.analysisTwo = this.currentPlayer.analysises[Math.floor(Math.random() * this.currentPlayer.analysises.length)];
@@ -44,18 +50,26 @@ export class ArticleVoteComponent implements OnInit {
       }
     },
       err => {
-        console.log(err);
+        $('#alert-bad').show();
+        $('#spinner').hide();
       }
     );
 
   }
 
   vote(option: Number) {
-    if(option === 1){
-      console.log('1');
-    } else {
-      console.log('2');
-    }
+    this.http.put(this.serverURL + '/articleVote',
+      {
+        name: this.currentPlayer.name,
+        articleID: option === 1 ? this.analysisOne._id: this.analysisTwo._id
+      }
+    ).subscribe(dat => {
+      this.fetchRandomInfo();
+    },
+      err => {
+        $('#alert-bad').show();
+      }
+    );
   }
   capitalizeWord(word: String) {
     if (word.indexOf('-') == -1) {
@@ -73,6 +87,9 @@ export class ArticleVoteComponent implements OnInit {
       rName += this.capitalizeWord(arr[s]) + ' ';
     }
     return rName;
+  }
+  closeBadAlert() {
+    $('#alert-bad').hide();
   }
 
 }

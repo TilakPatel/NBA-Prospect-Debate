@@ -129,6 +129,20 @@ app.get('/randomPlayer', (req, res) => {
     })
 })
 
+app.put('/articleVote', (req, res) => {
+    console.log(req.body)
+    Player.findOneAndUpdate({ 'name': req.body.name.toLowerCase(), "analysises._id": req.body.articleID },
+        { $inc: { "analysises.$.popularity": 1 } },
+        { safe: true, upsert: true },
+        function (err, doc) {
+            if (err) {
+                res.status(400).send({ 'message': 'error' });
+            }
+            res.status(200).send({ 'success': 'success' });
+        }
+    );
+})
+
 
 
 
