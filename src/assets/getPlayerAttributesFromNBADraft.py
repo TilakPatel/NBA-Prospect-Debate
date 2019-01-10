@@ -13,7 +13,7 @@ worksheet = workbook.sheet_by_index(0)
 # print(worksheet.cell(0, 0).value)
 
 for x in range(0, 100):
-    name = worksheet.cell(x, 0).value
+    name = worksheet.cell(x, 0).value.lower()
     r = requests.post("https://www.nbadraft.net/players/" +
                       name.replace(' ', '-').replace("'", ''))
     htmlText = r.text
@@ -39,7 +39,8 @@ for x in range(0, 100):
             'potential': potential,
             'passing': passing,
             'intangibles': intangibles,
-            'name': name}
+            'name': name,
+            'projectedDurability': 7}
     r2 = requests.post("http://localhost:8080/attributes", data=data)
 
 print('Done posting.')

@@ -1,40 +1,20 @@
 <div class="text-center">
     <h1>CURRENT BIG BOARD!</h1>
 </div>
-<div class="jumbotron" >
+<div class="jumbotron" *ngFor="let dummy of ' '.repeat(this.playerData.length).split(''), let x = index">
     <div class="container">
         <div class="row">
             <div class="col-lg-2">
-                <h1>1.</h1>
+                <h1>{{x + 1}}.</h1>
             </div>
             <div class="col-lg-8">
-                <h1>ZION WILLIAMSON</h1>
-                <h5>This guy is the most polarizing prospect in the draft. By far. What happens with the additional space?</h5>
-                <a class="btn btn-primary btn-lg" href="#" role="button">Read the article by</a>
+                <h1>{{this.playerData[x].name}}</h1>
+                <a class="btn btn-primary btn-lg" [routerLink]="['/player/' + this.playerData[x].name]" role="button">Read Scouting Analysis</a>
             </div>
             <div class="col-lg-1">
-                    <h4>Score:</h4>
-                    <h1>98.5</h1>
+                <h4>Score:</h4>
+                <h1>{{this.getPlayerScore(this.playerData[x])}}</h1>
             </div>
         </div>
     </div>
 </div>
-
-<div class="jumbotron" >
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-2">
-                    <h1>2.</h1>
-                </div>
-                <div class="col-lg-8">
-                    <h1>CAM REDDISH</h1>
-                    <h5>KLAY POTENTIAL.</h5>
-                    <a class="btn btn-primary btn-lg" href="#" role="button">Read the article by</a>
-                </div>
-                <div class="col-lg-1">
-                        <h4>Score:</h4>
-                        <h1>94.4</h1>
-                </div>
-            </div>
-        </div>
-    </div>

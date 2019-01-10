@@ -4,7 +4,7 @@ const playerSchema = mongoose.Schema({
     name: { type: String, required: true },
     college: { type: String, required: true },
     position: { type: String, required: true },
-    analysises: [{ analysis: String, popularity: Number, _id: false }],
+    analysises: [{ analysis: String, popularity: Number, _id: false, contributor: String }],
     attributes: {
         athleticism: [Number],
         size: [Number],
@@ -15,12 +15,13 @@ const playerSchema = mongoose.Schema({
         potential: [Number],
         passing: [Number],
         intangibles: [Number],
-        leadership: [Number]
+        leadership: [Number],
+        projectedDurability: [Number]
     }
     ,
-    height: String,
-    weight: Number,
-    year: String
+    height: { type: String, required: true },
+    weight: { type: Number, required: true },
+    year: { type: String, required: true }
 
 });
 

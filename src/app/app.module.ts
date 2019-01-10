@@ -7,10 +7,10 @@ import { HomeComponent } from './home/home.component';
 import { PlayerPageComponent } from './player-page/player-page.component';
 import { FullAnalysisSubmitComponent } from './full-analysis-submit/full-analysis-submit.component';
 import { AttributeSubmitComponent } from './attribute-submit/attribute-submit.component';
-
+import { HttpClientModule } from '@angular/common/http';
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
-  {path: 'player', component: PlayerPageComponent},
+  {path: 'player/:name', component: PlayerPageComponent},
   {path: 'submitFullAnalysis', component: FullAnalysisSubmitComponent},
   {path: 'submitAttributes', component: AttributeSubmitComponent}
 ];
@@ -24,11 +24,12 @@ const appRoutes: Routes = [
     AttributeSubmitComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true }
+      { enableTracing: false }
     ),
   ],
   entryComponents: [HomeComponent],

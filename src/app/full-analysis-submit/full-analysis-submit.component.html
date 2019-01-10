@@ -10,20 +10,28 @@
             <div class="form-group">
               <label for="exampleSelect1">Name of player</label>
               <select class="form-control" id="exampleSelect1">
-                <option *ngFor="let player of this.players">{{player}}</option>
+                <option *ngFor="let player of this.players" id="playerName">{{player}}</option>
               </select>
             </div>
             <div class="form-group">
               <label for="exampleInputEmail1">Name to credit for analysis (your name)</label>
-              <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter the name you want to be credited">
+              <input class="form-control" id="analysisContributor" aria-describedby="emailHelp" placeholder="Enter the name you want to be credited">
             </div>
             <div class="form-group">
-              <label for="exampleTextarea">Analysis</label>
-              <textarea class="form-control" id="exampleTextarea" rows="15"></textarea>
+              <label for="exampleTextarea" id = "charCountDisplay"></label>
+              <textarea class="form-control" id="analysis" rows="15" placeholder="Atleast 100 chars please"></textarea>
             </div>
-            <button type="submit" class="btn btn-lg btn-primary">Submit Analysis</button>
+            <button class="btn btn-lg btn-primary" (click)="this.submit()" type="button">Submit Analysis&emsp;<i class="fas fa-basketball-ball {{this.spinning}}"></i></button>
           </fieldset>
         </form>
+        <div class="alert alert-success" id="alert-good">
+            <button type="button" class="close" (click)="closeGoodAlert()">&times;</button>
+            <strong>Successfully submitted analysis. Thank you for your contributions!</strong>
+          </div>
+          <div class="alert alert-danger" id="alert-bad">
+            <button type="button" class="close" (click)="closeBadAlert()">&times;</button>
+            <strong>Error! Something went wrong.</strong>
+          </div>
       </div>
     </div>
 

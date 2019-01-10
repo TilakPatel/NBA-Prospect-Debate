@@ -2,5 +2,11 @@
 .name{
     text-align: center;
 }
-.progress {height: 2rem;}
+td{
+    text-align: center;
+    color: black;
+}
+th{
+    text-align:center;
+}
 

@@ -8,25 +8,33 @@ mongoose.connect('mongodb+srv://tilak:Basketball23@cluster0-tjkfz.mongodb.net/te
 }).catch(() => {
     console.log('Error');
 });
-app.use(bodyParser.urlencoded({
+app.use(bodyParser.json({
     extended: true
 }));
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
-app.post('/postPlayer', (req, res) => {
+app.post('/player', (req, res) => {
+    console.log(req.body)
     const player = new Player({
-        name: req.body.name,
+        name: req.body.name.toLowerCase(),
         college: req.body.college,
         position: req.body.position,
         weight: req.body.weight,
         height: req.body.height,
-        year: req.body.year
+        year: req.body.year,
+        projectedDurability: req.body.projectedDurability
     });
     player.save();
     res.status(200).send('hi');
 })
 
 app.post('/attributes', (req, res) => {
-    name = req.body.name;
+    name = req.body.name.toLowerCase();
     console.log(name);
     Player.findOneAndUpdate({ name: name },
         {
@@ -50,7 +58,47 @@ app.post('/attributes', (req, res) => {
                 'attributes.intangibles':
                     req.body.intangibles,
                 'attributes.leadership':
-                    req.body.leadership
+                    req.body.leadership,
+                'attributes.projectedDurability':
+                    req.body.projectedDurability
+
+            }
+        },
+        { safe: true, upsert: true },
+        function (err, doc) {
+            if (err) {
+                res.status(400).send('ERROR');
+            }
+            res.status(200).send('SUCC');
+        }
+    );
+})
+app.post('/getPlayer', (req, res) => { //takes in name of player
+    console.log(req.body);
+    Player.find({ name: req.body.name.toLowerCase() }, function (err, docs) {
+        if (docs) {
+            res.status(200).send(docs[0]);
+        } else {
+            res.status(400).send('error');
+        }
+
+    });
+})
+
+app.post('/analysis', (req, res) => {
+    analysis = req.body.analysis;
+    contributor = req.body.analysisContributor;
+    playerName = req.body.playerName.toLowerCase();
+
+    Player.findOneAndUpdate({ name: playerName },
+        {
+            $addToSet: {
+                'analysises':
+                {
+                    contributor: contributor,
+                    analysis: analysis,
+                    popularity: 0
+                }
 
             }
         },
@@ -65,12 +113,6 @@ app.post('/attributes', (req, res) => {
 })
 
 
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
 
 
 // Start the app by listening on the default Heroku port

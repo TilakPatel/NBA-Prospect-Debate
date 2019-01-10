@@ -10,7 +10,7 @@ worksheet = workbook.sheet_by_index(0)
 # print(worksheet.cell(0, 0).value)
 
 for x in range(0, 100):
-    name = worksheet.cell(x, 0).value
+    name = worksheet.cell(x, 0).value.lower()
     height = worksheet.cell(x, 1).value
     weight = worksheet.cell(x, 2).value
     position = worksheet.cell(x, 3).value
@@ -22,5 +22,5 @@ for x in range(0, 100):
             'weight': weight,
             'height': height,
             'year': year}
-    r = requests.post(url="http://localhost:8080/postPlayer", data=data)
+    r = requests.post(url="http://localhost:8080/player", data=data)
 print('Done posting.')
