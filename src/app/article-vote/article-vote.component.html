@@ -1,0 +1,18 @@
+<div class="topText">
+  <h2>Vote on these articles written for:</h2>
+  <h1>{{this.capitalizeName(currentPlayer.name)}}</h1>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="jumbotron">
+      <p class="lead">{{this.analysisOne.analysis}}</p>
+      <button type="button" class="btn btn-lg btn-primary" (click)="vote(1)">Vote for this article</button>
+    </div>
+  </div>
+  <div class="col">
+    <div class="jumbotron">
+      <p class="lead">{{this.analysisTwo.analysis}}</p>
+        <button type="button" class="btn btn-lg btn-primary" (click)="vote(2)">Vote for this article</button>
+    </div>
+  </div>
+</div>

@@ -68,5 +68,22 @@ export class PlayerPageComponent implements OnInit {
       this.getAvg(att.nba_ready) * (1/115) + this.getAvg(att.passing) * (1/115) + this.getAvg(att.potential) * (2.5/115) + this.getAvg(att.shooting) * (2/115) + this.getAvg(att.size) * (1/115) - this.getAvg(att.projectedDurability) * (0.5/115)) + ageSubtract + 5).toFixed(2);
 
   }
+  capitalizeWord(word: String) {
+    if (word.indexOf('-') == -1) {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    } else {
+      return word.charAt(0).toUpperCase() + word.slice(1,word.indexOf('-') + 1) + word.charAt(word.indexOf('-') + 1).toUpperCase() + word.slice(word.indexOf('-') + 2);
+    }
+
+  }
+
+  capitalizeName(name: String) {
+    let arr = name.split(' ');
+    let rName : String = '';
+    for(let s in arr){
+      rName += this.capitalizeWord(arr[s]) + ' ';
+    }
+    return rName;
+  }
 
 }

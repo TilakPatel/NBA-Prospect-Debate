@@ -1,10 +1,19 @@
 const mongoose = require('mongoose');
 
+const analysis = {
+    analysis: String,
+    popularity: Number,
+    contributor: String
+};
 const playerSchema = mongoose.Schema({
     name: { type: String, required: true },
     college: { type: String, required: true },
     position: { type: String, required: true },
-    analysises: [{ analysis: String, popularity: Number, _id: false, contributor: String }],
+    analysises: {type: [analysis], default: {
+        analysis: 'vote for the other one',
+        popularity: -100000,
+        contributor: 'DEV'
+    }},
     attributes: {
         athleticism: [Number],
         size: [Number],
@@ -24,5 +33,7 @@ const playerSchema = mongoose.Schema({
     year: { type: String, required: true }
 
 });
+
+
 
 module.exports = mongoose.model('Player', playerSchema);

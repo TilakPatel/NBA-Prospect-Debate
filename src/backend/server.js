@@ -30,7 +30,7 @@ app.post('/player', (req, res) => {
         projectedDurability: req.body.projectedDurability
     });
     player.save();
-    res.status(200).send('hi');
+    res.status(200).send({ 'success': 'success' });
 })
 
 app.post('/attributes', (req, res) => {
@@ -67,9 +67,9 @@ app.post('/attributes', (req, res) => {
         { safe: true, upsert: true },
         function (err, doc) {
             if (err) {
-                res.status(400).send('ERROR');
+                res.status(400).send({ 'message': 'error' });
             } else {
-                res.status(200).send(doc);
+                res.status(200).send({ 'success': 'success' });
             }
         }
     );
@@ -80,7 +80,7 @@ app.post('/getPlayer', (req, res) => { //takes in name of player
         if (docs) {
             res.status(200).send(docs[0]);
         } else {
-            res.status(400).send('error');
+            res.status(400).send({ 'message': 'error' });
         }
 
     });
@@ -106,11 +106,27 @@ app.post('/analysis', (req, res) => {
         { safe: true, upsert: true },
         function (err, doc) {
             if (err) {
-                res.status(400).send('ERROR');
+                res.status(400).send({ 'message': 'error' });
             }
-            res.status(200).send('SUCC');
+            res.status(200).send({ 'success': 'success' });
         }
     );
+})
+
+app.get('/randomPlayer', (req, res) => {
+    Player.count().exec(function (err, count) {
+
+        // Get a random entry
+        var random = Math.floor(Math.random() * count)
+
+        // Again query all users but only fetch one offset by our random #
+        Player.findOne().skip(random).exec(
+            function (err, result) { //result is random player
+                if (err) { res.status(400).send({ 'message': 'error' }); } else {
+                    res.status(200).send(result);
+                }
+            })
+    })
 })
 
 

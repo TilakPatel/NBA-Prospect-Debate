@@ -145,10 +145,12 @@ export class FullAnalysisSubmitComponent implements OnInit {
       ).subscribe(dat => {
         $('#alert-good').show();
         this.spinning = "";
+        console.log(dat);
       },
         err => {
           $('#alert-bad').show();
           this.spinning = "";
+          console.log(err);
         }
       );
     }

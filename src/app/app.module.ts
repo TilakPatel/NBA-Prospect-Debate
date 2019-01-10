@@ -8,11 +8,13 @@ import { PlayerPageComponent } from './player-page/player-page.component';
 import { FullAnalysisSubmitComponent } from './full-analysis-submit/full-analysis-submit.component';
 import { AttributeSubmitComponent } from './attribute-submit/attribute-submit.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ArticleVoteComponent } from './article-vote/article-vote.component';
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   {path: 'player/:name', component: PlayerPageComponent},
   {path: 'submitFullAnalysis', component: FullAnalysisSubmitComponent},
-  {path: 'submitAttributes', component: AttributeSubmitComponent}
+  {path: 'submitAttributes', component: AttributeSubmitComponent},
+  {path: 'vote', component: ArticleVoteComponent}
 ];
 
 @NgModule({
@@ -21,7 +23,8 @@ const appRoutes: Routes = [
     HomeComponent,
     PlayerPageComponent,
     FullAnalysisSubmitComponent,
-    AttributeSubmitComponent
+    AttributeSubmitComponent,
+    ArticleVoteComponent
   ],
   imports: [
     HttpClientModule,

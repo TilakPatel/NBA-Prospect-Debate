@@ -1,8 +1,9 @@
+import { Analysis } from './analysis-model'
 export class Player {
     name: string;
     college: string;
     position: string;
-    analysises: [{ analysis: string, popularity: number, _id: false, contributor: string }];
+    analysises: [Analysis];
     attributes: {
         athleticism: [number],
         size: [number],
