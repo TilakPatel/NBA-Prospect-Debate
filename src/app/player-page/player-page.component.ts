@@ -3,6 +3,7 @@ import { JQueryStatic } from 'node_modules/jquery';
 import { ActivatedRoute } from '@angular/router';
 import { Player } from '../models/player-model';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 declare var $: JQueryStatic;
 @Component({
   selector: 'app-player-page',
@@ -11,6 +12,7 @@ declare var $: JQueryStatic;
 })
 export class PlayerPageComponent implements OnInit {
   playerName: String;
+  serverURL: string = environment.URL;
   player: Player = new Player();
   str: String = 'fsdf';
   analysisText: String;
@@ -20,13 +22,12 @@ export class PlayerPageComponent implements OnInit {
   ngOnInit() {
     $('[data-toggle="tooltip"]').tooltip();
     this.route.params.subscribe(params => this.playerName = params['name']);
-    this.http.post<Player>('http://localhost:8080/getPlayer',
+    this.http.post<Player>(this.serverURL+'/getPlayer',
       {
         name: this.playerName
       }
     ).subscribe(dat => {
       this.player = dat;
-      console.log(this.player);
       this.player.analysises.sort((a, b) => b.popularity - a.popularity);
       if(this.player.analysises && this.player.analysises.length){ //not empty
         this.analysisText = this.player.analysises[0].analysis;
@@ -36,7 +37,7 @@ export class PlayerPageComponent implements OnInit {
         this.analysisContributor = "No analysis has been written.";
       }
     },
-      err => { console.log('err') }
+      err => { console.log(err) }
     );
   }
   getAvg(arr: [number]) {

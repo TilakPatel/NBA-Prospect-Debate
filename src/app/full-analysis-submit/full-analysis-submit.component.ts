@@ -1,7 +1,7 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { JQueryStatic } from 'node_modules/jquery';
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../environments/environment'
 declare var $: JQueryStatic;
 @Component({
   selector: 'app-full-analysis-submit',
@@ -113,6 +113,7 @@ export class FullAnalysisSubmitComponent implements OnInit {
   ]
   spinning: string = "";
   charCount: string;
+  serverURL: string = environment.URL;
   constructor(private http: HttpClient, private zone: NgZone) { }
 
   ngOnInit() {
@@ -120,7 +121,6 @@ export class FullAnalysisSubmitComponent implements OnInit {
     $('#alert-bad').hide();
     $('#analysis').on('keyup', function () {
       $("#charCountDisplay").html($("#analysis").val().replace(/(?:\r\n|\r|\n)/g, '').length.toString() + ' chars. (100 needed)');
-      console.log(this.charCount);
     });
   }
 
@@ -136,7 +136,7 @@ export class FullAnalysisSubmitComponent implements OnInit {
       $('#alert-bad').show();
       this.spinning = "";
     } else {
-      this.http.post('http://localhost:8080/analysis',
+      this.http.post(this.serverURL + '/analysis',
         {
           playerName: playerName,
           analysis: analysis,

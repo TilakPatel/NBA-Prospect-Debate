@@ -68,8 +68,9 @@ app.post('/attributes', (req, res) => {
         function (err, doc) {
             if (err) {
                 res.status(400).send('ERROR');
+            } else {
+                res.status(200).send(doc);
             }
-            res.status(200).send('SUCC');
         }
     );
 })

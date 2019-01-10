@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment'
-import { Player } from '../models/player-model'
+import { environment } from '../../environments/environment';
+import { Player } from '../models/player-model';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -117,7 +117,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     for (let name of this.playerNames) {
-      this.http.post<Player>('http://localhost:8080/getPlayer',
+      this.http.post<Player>(this.serverURL + '/getPlayer',
         {
           name: name
         }
