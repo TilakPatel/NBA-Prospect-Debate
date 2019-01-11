@@ -9,11 +9,7 @@ const playerSchema = mongoose.Schema({
     name: { type: String, required: true },
     college: { type: String, required: true },
     position: { type: String, required: true },
-    analysises: {type: [analysis], default: {
-        analysis: 'vote for the other one',
-        popularity: -100000,
-        contributor: 'DEV'
-    }},
+    analysises: {type: [analysis]},
     attributes: {
         athleticism: [Number],
         size: [Number],

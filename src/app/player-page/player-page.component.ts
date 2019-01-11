@@ -27,9 +27,10 @@ export class PlayerPageComponent implements OnInit {
         name: this.playerName
       }
     ).subscribe(dat => {
+      console.log(dat);
       this.player = dat;
       this.player.analysises.sort((a, b) => b.popularity - a.popularity);
-      if (this.player.analysises[0].analysis = 'vote for the other one') { //empty
+      if (this.player.analysises[0].analysis === 'vote for the other one') { //empty
         this.analysisText = "No analysis has been written.";
         this.analysisContributor = "No analysis has been written.";
       } else {
