@@ -1,5 +1,16 @@
 # NBA Prospect Debate
 
-## Site to discuss the latest NBA players. Allows users to upload player info, write player reviews, and submit rankings.
+## Web application that allows you to discuss the latest NBA draft prospects.
 
-## Written using the MEAN Stack. MongoDB, Express, Angular, and Node.JS
+## Written using the following:
+
+- Angular.JS
+- Node.JS
+- MongoDB
+- Bootstrap
+
+## Here are features:
+
+- Submit player rating votes
+- Submit player writeups
+- Vote on player writeups
